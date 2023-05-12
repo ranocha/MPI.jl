@@ -1,9 +1,4 @@
-module AMDGPUExt
-
-import MPI
-isdefined(Base, :get_extension) ? (import AMDGPU) : (import ..AMDGPU)
-import MPI: MPIPtr, Buffer, Datatype
-
+import .AMDGPU
 
 function Base.cconvert(::Type{MPIPtr}, A::AMDGPU.ROCArray{T}) where T
     A
@@ -24,5 +19,3 @@ end
 function Buffer(arr::AMDGPU.ROCArray)
     Buffer(arr, Cint(length(arr)), Datatype(eltype(arr)))
 end
-
-end # AMDGPUExt

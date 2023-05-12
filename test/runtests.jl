@@ -6,11 +6,7 @@ using MPIPreferences
 using DoubleFloats
 if get(ENV, "JULIA_MPI_TEST_ARRAYTYPE", "") == "CuArray"
     import CUDA
-    if isdefined(CUDA, :versioninfo)
-        CUDA.versioninfo()
-    else
-        CUDA.version()
-    end
+    CUDA.version()
     CUDA.precompile_runtime()
     ArrayType = CUDA.CuArray
 elseif get(ENV,"JULIA_MPI_TEST_ARRAYTYPE","") == "ROCArray"

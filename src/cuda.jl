@@ -1,8 +1,4 @@
-module CUDAExt
-
-import MPI 
-isdefined(Base, :get_extension) ? (import CUDA) : (import ..CUDA)
-import MPI: MPIPtr, Buffer, Datatype
+import .CUDA
 
 function Base.cconvert(::Type{MPIPtr}, buf::CUDA.CuArray{T}) where T
     Base.cconvert(CUDA.CuPtr{T}, buf) # returns DeviceBuffer
@@ -23,5 +19,3 @@ end
 function Buffer(arr::CUDA.CuArray)
     Buffer(arr, Cint(length(arr)), Datatype(eltype(arr)))
 end
-
-end #CUDAExt
